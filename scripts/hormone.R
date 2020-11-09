@@ -13,4 +13,4 @@ p2 <- ggplot(Hormone, aes(Drug,conc)) +
 					                                           width=0.25) + geom_point() +
   coord_flip()
 
-ggarrange(p1,p2,ncol=1)
+p2
