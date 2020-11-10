@@ -1,0 +1,70 @@
+---
+title: "hormone-analysis-report"
+author: "tmuylder"
+date: "11/10/2020"
+output: html_document
+csl: literature/apa.csl
+bibliography: literature/bibliography.bib
+---
+
+# Analysis of hormone project
+
+This script analyzes the dataset of the hormone experiment performed on 01/01/2020.
+It contains the statistical analysis and plotting of figure 2D of the paper.
+
+Here is a reference to a paper [@Munafo2017].
+
+## 1. Import libraries
+Install the packages and load in the libraries:
+
+```{r, warning=FALSE}
+#install.packages("ggplot2")
+library(ggplot2)
+```
+
+## 2. Data analysis
+
+### 2.1 Import samples
+
+Import dataset with proper name handling & rename third column. 
+
+```{r, results='hide'}
+hormone <- read.csv2("data/20201102-hormone.csv")
+names(hormone)[3] <- "Concentration"
+hormone
+```
+
+
+```{r}
+summary(hormone)
+```
+
+### 2.2 Create figures
+Create plot effect of drug A and B on concentration of substance X measured in blood of patients. 
+
+```{r, fig.cap="Result of drug on hormone concentration", fig.width=5, fig.height=2}
+ggplot(hormone, aes(Drug,Concentration)) +
+  stat_summary(fun=mean, geom="bar") +
+  stat_summary(fun.data=mean_cl_normal, geom="errorbar", width=0.25) +  
+  geom_point() +
+  coord_flip()
+```
+
+
+## 3. Discussion
+There is a clear influence of the choice of drugs on the concentration of hormones present in patients blood. 
+
+## 4. Conclusion 
+
+## 5. Final notes
+This report was created with R version: `r getRversion()`. The following packages were used for the analysis
+
+```{r}
+sessionInfo()
+```
+
+## 6. References
+
+
+
+
